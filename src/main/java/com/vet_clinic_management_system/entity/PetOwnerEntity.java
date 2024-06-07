@@ -18,7 +18,7 @@ public class PetOwnerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public Integer id;
+    private Integer id;
     @NotNull(message = "{validation.entity.petOwners.firstName}")
     @Column(name = "first_name")
     private String firstName;
@@ -36,7 +36,7 @@ public class PetOwnerEntity {
     private String address;
     @Column(name = "created_at")
     private LocalDate createdAt;
-    @OneToMany(mappedBy = "petOwner", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "petOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<PetEntity> petEntities = new ArrayList<>();
 
     @Override

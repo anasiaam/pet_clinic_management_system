@@ -17,7 +17,7 @@ public class AppointmentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public Integer id;
+    private Integer id;
     @NotNull(message = "{validation.entity.appointments.appointmentDate}")
     @Column(name = "appointment_date")
     private LocalDate appointmentDate;

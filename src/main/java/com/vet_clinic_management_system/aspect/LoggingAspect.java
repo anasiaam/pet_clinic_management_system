@@ -1,5 +1,6 @@
 package com.vet_clinic_management_system.aspect;
 
+import com.vet_clinic_management_system.DTO.UserDTO;
 import com.vet_clinic_management_system.exception.VetClinicException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -7,11 +8,12 @@ import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Aspect
 @Configuration
 public class LoggingAspect {
-    private final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Before("com.vet_clinic_management_system.aspect.PointcutConfig.serviceLayer()")
     public void logServiceMethodsBefore(JoinPoint jp){
@@ -41,4 +43,19 @@ public class LoggingAspect {
         logger.info("Time taken for method {} to complete is {} ms",pjp.getSignature().getName(),(endTime-startTime));
         return object;
     }
+
+    @Around("execution(* com.vet_clinic_management_system.service..*(..)) || execution(* com.vet_clinic_management_system.controller..*(..))")
+    public Object logServices(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        logger.info("Executing {} inside {}", proceedingJoinPoint.getSignature().getName(), proceedingJoinPoint.getThis().getClass().getSimpleName());
+        return proceedingJoinPoint.proceed();
+    }
+
+    @Around("execution(* com.vet_clinic_management_system.controller..*(..))")
+    public Object logUser(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        if (SecurityContextHolder.getContext().getAuthentication() != null && SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDTO) {
+            logger.info("Logged user {}", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        }
+        return proceedingJoinPoint.proceed();
+    }
+
 }

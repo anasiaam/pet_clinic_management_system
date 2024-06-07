@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class TreatmentDTO {
-    public Integer id;
+    private Integer id;
     @NotNull(message = "{validation.entity.treatments.medication}")
     private String medication;
     @NotNull(message = "{validation.entity.treatments.description}")

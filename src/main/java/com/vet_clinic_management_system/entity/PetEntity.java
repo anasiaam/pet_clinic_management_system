@@ -18,7 +18,7 @@ public class PetEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public Integer id;
+    private Integer id;
     @NotNull(message = "{validation.entity.pets.name}")
     @Column(name = "name")
     private String name;
@@ -36,11 +36,11 @@ public class PetEntity {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private PetOwnerEntity petOwner;
-    @OneToMany(mappedBy = "pet", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "pet", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<MedicalRecordEntity> medicalRecordEntities = new ArrayList<>();
-    @OneToMany(mappedBy = "pet", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "pet", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<AppointmentEntity> appointmentEntities = new ArrayList<>();
-    @OneToMany(mappedBy = "pet", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "pet", fetch = FetchType.EAGER, cascade = CascadeType.ALL) //cascadeType qe te fshihet dhe entiteti oneToMany
     private List<BillEntity> billEntities = new ArrayList<>();
 
     @Override

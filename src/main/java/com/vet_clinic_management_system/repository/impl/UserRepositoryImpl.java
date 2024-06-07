@@ -35,6 +35,16 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public UserEntity findByUsername(String username) {
+        return entityManager.createQuery("SELECT u FROM UserEntity u WHERE u.username = :username", UserEntity.class)
+                .setParameter("username", username)
+                .getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
     public void delete(Integer id) {
         entityManager.remove(findById(id));
     }

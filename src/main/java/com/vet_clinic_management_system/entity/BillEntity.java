@@ -17,7 +17,7 @@ public class BillEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public Integer id;
+    private Integer id;
     @NotNull(message = "{validation.entity.bills.amount}")
     @Column(name = "amount")
     private int amount;

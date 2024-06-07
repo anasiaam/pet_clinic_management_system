@@ -18,7 +18,7 @@ public class TreatmentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public Integer id;
+    private Integer id;
     @NotNull(message = "{validation.entity.treatments.medication}")
     @Column(name = "medication")
     private String medication;
@@ -27,7 +27,7 @@ public class TreatmentEntity {
     private String description;
     @Column(name = "created_at")
     private LocalDate createdAt;
-    @OneToMany(mappedBy = "treatment", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "treatment", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<MedicalRecordEntity> medicalRecordEntities = new ArrayList<>();
 
     @Override

@@ -16,7 +16,7 @@ public class MedicalRecordEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public Integer id;
+    private Integer id;
     @NotNull(message = "{validation.entity.medicalRecords.diagnosis}")
     @Column(name = "diagnosis")
     private String diagnosis;

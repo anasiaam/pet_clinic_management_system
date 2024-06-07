@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class PetOwnerDTO {
-    public Integer id;
+    private Integer id;
     @NotNull(message = "{validation.entity.petOwners.firstName}")
     private String firstName;
     @NotNull(message = "{validation.entity.petOwners.lastName}")

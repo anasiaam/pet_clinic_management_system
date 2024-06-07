@@ -19,35 +19,42 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public Integer id;
+    private Integer id;
     @NotNull(message = "{validation.entity.users.username}")
-    @Column(name = "username")
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
     @NotNull(message = "{validation.entity.users.password}")
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
     @NotNull(message = "{validation.entity.users.email}")
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
     @NotNull(message = "{validation.entity.users.firstName}")
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
     @NotNull(message = "{validation.entity.users.lastName}")
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
     @NotNull(message = "{validation.entity.users.phoneNumber}")
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
     @NotNull(message = "{validation.entity.users.role}")
     @Enumerated(EnumType.STRING)
-    @Column(name = "role")
+    @Column(name = "role", nullable = false)
     private Role role;
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDate createdAt;
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<AppointmentEntity> appointmentEntities = new ArrayList<>();
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<MedicalRecordEntity> medicalRecordEntities = new ArrayList<>();
+
+    public UserEntity(String firstName, String lastName, String username, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+    }
 
     @Override
     public String toString() {

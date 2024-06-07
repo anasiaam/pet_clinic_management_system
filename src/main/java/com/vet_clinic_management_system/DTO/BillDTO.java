@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class BillDTO {
-    public Integer id;
+    private Integer id;
     @NotNull(message = "{validation.entity.bills.amount}")
     private int amount;
     private LocalDate billingDate;

@@ -9,5 +9,6 @@ public interface UserRepository {
     UserEntity findById(Integer id);
     void update(UserEntity userEntity);
     List<UserEntity> findAll();
+    UserEntity findByUsername(String username);
     void delete(Integer id);
 }

@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class AppointmentDTO {
-    public Integer id;
+    private Integer id;
     @NotNull(message = "{validation.entity.appointments.appointmentDate}")
     private LocalDate appointmentDate;
     @NotNull(message = "{validation.entity.appointments.reason}")
