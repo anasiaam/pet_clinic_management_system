@@ -49,11 +49,14 @@ public class UserEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<MedicalRecordEntity> medicalRecordEntities = new ArrayList<>();
 
-    public UserEntity(String firstName, String lastName, String username, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public UserEntity(String username, String password, String email, String firstName, String lastName, String phoneNumber, Role role) {
         this.username = username;
         this.password = password;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
     }
 
     @Override

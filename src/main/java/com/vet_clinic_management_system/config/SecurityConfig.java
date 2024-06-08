@@ -5,10 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,15 +35,14 @@ public class SecurityConfig {
                 .addFilterBefore(userAndPasswordAuthFilter, BasicAuthenticationFilter.class)
                 .addFilterBefore(jwtFilter, UserAndPasswordAuthFilter.class);
 
-        http.csrf(Customizer.withDefaults());
-        http.cors(Customizer.withDefaults());
+        http.csrf(AbstractHttpConfigurer::disable);
+        http.cors(AbstractHttpConfigurer::disable);
 
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        http.authorizeHttpRequests(requests -> {
-            requests.requestMatchers(HttpMethod.POST, "/v1/auth/signIn", "/v1/auth/signUp").permitAll()
-                    .anyRequest().authenticated();
-        });
+        http.authorizeHttpRequests(requests ->
+                requests.requestMatchers(HttpMethod.POST, "/v1/auth/signIn", "/v1/auth/signUp").permitAll()
+                .anyRequest().authenticated());
         return http.build();
     }
 

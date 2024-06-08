@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -21,11 +22,12 @@ import java.util.List;
 public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private AuthenticationService authenticationService;
+    private final AuthenticationService authenticationService;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationService authenticationService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authenticationService = authenticationService;
     }
 
     @Override
@@ -59,22 +61,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDTO findByUsername(String username) {
-        UserEntity userEntity = userRepository.findByUsername(username);
-        if (userEntity != null) {
-            return UserMapper.toDTO(userEntity);
-        }
-        throw new RuntimeException("User with username " + username + " not found.");
-    }
-
-    @Override
     public void delete(Integer id) {
         userRepository.delete(id);
     }
 
     public UserDTO signUp(SignUpDTO signUpDTO) {
         String encodedPassword = passwordEncoder.encode(new String(signUpDTO.getPassword()));
-        UserEntity userEntity = new UserEntity(signUpDTO.getFirstName(), signUpDTO.getLastName(), signUpDTO.getLogin(), encodedPassword);
+        UserEntity userEntity = new UserEntity(signUpDTO.getUsername(), encodedPassword, signUpDTO.getEmail(), signUpDTO.getFirstName(), signUpDTO.getLastName(), signUpDTO.getPhoneNumber(), signUpDTO.getRole());
+        userEntity.setCreatedAt(LocalDate.now());
         userRepository.save(userEntity);
         return UserMapper.toDTO(userEntity);
     }

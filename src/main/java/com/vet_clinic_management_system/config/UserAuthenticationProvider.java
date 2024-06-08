@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
-import java.text.ParseException;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Date;
@@ -39,7 +38,7 @@ public class UserAuthenticationProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(UserDTO userDTO) throws ParseException {
+    public String createToken(UserDTO userDTO) {
         Date now = new Date();
         Date validity = new Date(now.getTime() +3600000);
         Algorithm algorithm = Algorithm.HMAC256(secretKey);

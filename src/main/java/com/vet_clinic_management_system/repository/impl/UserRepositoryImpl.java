@@ -1,6 +1,5 @@
 package com.vet_clinic_management_system.repository.impl;
 
-import com.vet_clinic_management_system.entity.TreatmentEntity;
 import com.vet_clinic_management_system.entity.UserEntity;
 import com.vet_clinic_management_system.repository.UserRepository;
 import jakarta.persistence.EntityManager;

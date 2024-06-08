@@ -7,14 +7,11 @@ import com.vet_clinic_management_system.config.UserAuthenticationProvider;
 import com.vet_clinic_management_system.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.text.ParseException;
 
 @RestController
 @RequestMapping("/v1/auth")
@@ -24,7 +21,7 @@ public class AuthenticationController {
     private final UserAuthenticationProvider userAuthenticationProvider;
 
     @PostMapping("/signIn")
-    public ResponseEntity<UserDTO> login(@RequestBody CredentialsDTO credentialsDTO) throws ParseException {
+    public ResponseEntity<UserDTO> login(@RequestBody CredentialsDTO credentialsDTO) {
         var authentication = userAuthenticationProvider.validateCredentials(credentialsDTO);
 
         UserDTO userDTO = (UserDTO) authentication.getPrincipal();
@@ -39,7 +36,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signOut")
-    public ResponseEntity<Void> logout(@AuthenticationPrincipal UserDTO signUpDTO) {
+    public ResponseEntity<Void> logout() {
         SecurityContextHolder.clearContext();
         return ResponseEntity.noContent().build();
     }
