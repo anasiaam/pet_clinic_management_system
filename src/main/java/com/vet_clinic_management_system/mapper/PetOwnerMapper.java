@@ -31,6 +31,7 @@ public class PetOwnerMapper {
     }
 
     public static PetOwnerDTO toDTO(PetOwnerEntity petOwnerEntity) {
+        // petOwnerEntity vjen null
         PetOwnerDTO petOwnerDTO = new PetOwnerDTO();
         petOwnerDTO.setId(petOwnerEntity.getId());
         petOwnerDTO.setFirstName(petOwnerEntity.getFirstName());

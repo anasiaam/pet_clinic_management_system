@@ -39,6 +39,7 @@ public class UserMapper {
         userDTO.setId(userEntity.getId());
         userDTO.setUsername(userEntity.getUsername());
         userDTO.setEmail(userEntity.getEmail());
+        userDTO.setPassword(userEntity.getPassword());
         userDTO.setFirstName(userEntity.getFirstName());
         userDTO.setLastName(userEntity.getLastName());
         userDTO.setRole(userEntity.getRole());

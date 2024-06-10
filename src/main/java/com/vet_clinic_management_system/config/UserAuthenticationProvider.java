@@ -6,7 +6,7 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.vet_clinic_management_system.DTO.CredentialsDTO;
 import com.vet_clinic_management_system.DTO.UserDTO;
-import com.vet_clinic_management_system.service.AuthenticationService;
+import com.vet_clinic_management_system.service.impl.AuthenticationServiceImpl;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -27,9 +27,9 @@ public class UserAuthenticationProvider {
 
     @Value("${security.jwt.token.secret-key:secret-key}")
     private String secretKey;
-    private final AuthenticationService authenticationService;
+    private final AuthenticationServiceImpl authenticationService;
 
-    public UserAuthenticationProvider(@Lazy AuthenticationService authenticationService) {
+    public UserAuthenticationProvider(@Lazy AuthenticationServiceImpl authenticationService) {
         this.authenticationService = authenticationService;
     }
 

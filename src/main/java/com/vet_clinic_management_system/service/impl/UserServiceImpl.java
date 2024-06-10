@@ -5,7 +5,6 @@ import com.vet_clinic_management_system.DTO.UserDTO;
 import com.vet_clinic_management_system.entity.UserEntity;
 import com.vet_clinic_management_system.mapper.UserMapper;
 import com.vet_clinic_management_system.repository.UserRepository;
-import com.vet_clinic_management_system.service.AuthenticationService;
 import com.vet_clinic_management_system.service.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,9 +21,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final AuthenticationService authenticationService;
+    private final AuthenticationServiceImpl authenticationService;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationService authenticationService) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationServiceImpl authenticationService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationService = authenticationService;
